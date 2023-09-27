@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# don't push up .env files you dummy
+.env.development
+.env
