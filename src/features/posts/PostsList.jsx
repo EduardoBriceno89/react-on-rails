@@ -30,6 +30,23 @@ function postsList() {
     loadPosts();
   }, []);
 
+  const deletePost = async (id) => {
+    try {
+      //DELETE request to http://localhost:3000
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setPosts(posts.filter((post) => post.id !== id));
+      } else {
+        throw response;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {posts.map((post) => (
@@ -39,7 +56,9 @@ function postsList() {
               {post.title}
             </Link>
           </h2>
-          <p>{post.body}</p>
+          <div className="posts-link">
+            <button onClick={() => deletePost(post.id)}>Delete</button>
+          </div>
         </div>
       ))}
     </div>
